@@ -1,0 +1,24 @@
+{
+  "name": "react-animated-text-content",
+  "version": "1.0.0",
+  "description": "Animate your jsx/html text using React component",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "animation",
+    "animate",
+    "keyframes",
+    "react",
+    "transition",
+    "text",
+    "string"
+  ],
+  "author": "Damian Kalka (kalka@762@gmail.com)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kalkson/react-animated-text-content"
+  }
+}
