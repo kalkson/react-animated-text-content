@@ -1,1 +1,6 @@
 node_modules
+.vscode
+.history
+package-lock.json
+*.log
+dist

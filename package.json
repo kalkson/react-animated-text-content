@@ -2,9 +2,14 @@
   "name": "react-animated-text-content",
   "version": "1.0.0",
   "description": "Animate your jsx/html text using React component",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "npm run test"
+    "test": "npm run test",
+    "build": "rollup -c",
+    "start": "rollup -c -w"
   },
   "keywords": [
     "animation",
@@ -20,5 +25,28 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/kalkson/react-animated-text-content"
-  }
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.36",
+    "@types/react-dom": "^17.0.11",
+    "@types/styled-components": "^5.1.15",
+    "@types/uuid": "^8.3.3",
+    "babel-core": "^6.26.3",
+    "babel-runtime": "^6.26.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rollup": "^2.60.1",
+    "rollup-plugin-sass": "^1.2.9",
+    "rollup-plugin-typescript2": "^0.31.1",
+    "styled-components": "^5.3.3",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.2",
+    "uuid": "^8.3.2"
+  },
+  "peerDependencies": {
+    "react": ">=16.11.0 <=18.0.1",
+    "react-dom": ">=16.11.0 <=18.0.1",
+    "styled-components": "^5.3.3"
+  },
+  "dependencies": {}
 }
