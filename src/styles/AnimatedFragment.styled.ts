@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
+
 import { AnimationShapeType } from '../types';
 
-export const AnimatedFragment = styled.span<{
+export const AnimatedFragment = styled.div<{
   count?: number;
   interval?: number;
 }>`
@@ -45,11 +46,10 @@ export const StyledWrapper = styled.div<{
       `${duration ?? 0.4}s ${ease ?? 'ease-in-out'} forwards;`};
 
     animation-name: ${({ shouldAnimate, uid }) =>
-      shouldAnimate && `fragmentletter-${uid}`};
+      shouldAnimate ? `fragmentletter-${uid}` : ''};
   }
 
-  ${({ count, interval }) => {
-    if (!count) return;
+  ${({ count = 0, interval }) => {
     let styles = '';
 
     for (let i = 0; i < count; i += 1) {

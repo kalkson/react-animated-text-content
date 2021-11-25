@@ -2,13 +2,13 @@
   "name": "react-animated-text-content",
   "version": "1.0.0",
   "description": "Animate your jsx/html text using React component",
-  "main": "dist/index.js",
+  "main": "index.js",
   "files": [
     "dist"
   ],
   "scripts": {
     "test": "npm run test",
-    "build": "rollup -c",
+    "build": "rm -rf dist && rollup -c",
     "start": "rollup -c -w"
   },
   "keywords": [
@@ -27,6 +27,9 @@
     "url": "https://github.com/kalkson/react-animated-text-content"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@emotion/babel-plugin": "^11.3.0",
+    "@rollup/plugin-replace": "^3.0.0",
     "@types/react": "^17.0.36",
     "@types/react-dom": "^17.0.11",
     "@types/styled-components": "^5.1.15",
@@ -34,6 +37,7 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "babel-core": "^6.26.3",
+    "babel-plugin-styled-components": "^2.0.1",
     "babel-runtime": "^6.26.0",
     "eslint": "^8.3.0",
     "eslint-config-airbnb": "^19.0.1",
@@ -46,7 +50,11 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rollup": "^2.60.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-import-css": "^3.0.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-sass": "^1.2.9",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.31.1",
     "styled-components": "^5.3.3",
     "tslib": "^2.3.1",

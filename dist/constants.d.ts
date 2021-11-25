@@ -9,4 +9,4 @@ export declare const DEFAULT_ANIMATION: {
 export declare const DEFAULT_ANIMATION_TYPE: null;
 export declare const DEFAULT_TAG = "div";
 export declare const DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN = "200px";
-export declare const DEFAULT_THRESHOLD = 1;
+export declare const DEFAULT_THRESHOLD = 0;

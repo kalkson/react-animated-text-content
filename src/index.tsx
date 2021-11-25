@@ -5,6 +5,7 @@ import React, {
   FC,
   ReactText,
   ReactNode,
+  ElementType,
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -29,31 +30,8 @@ interface Props {
   interval?: number;
   animation?: AnimationShapeType;
   animationType?: AnimationType;
-  tag?:
-    | 'span'
-    | 'div'
-    | 'p'
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'strong'
-    | 'blackquote'
-    | 'code'
-    | 'li'
-    | 'dt'
-    | 'dd'
-    | 'mark'
-    | 'ins'
-    | 'del'
-    | 'sup'
-    | 'sub'
-    | 'small'
-    | 'i'
-    | 'b'
-    | 'em';
+  tag?: ElementType;
+  className: string;
 }
 
 const renderWords = (arrayToRender: string[]): ReactNode =>

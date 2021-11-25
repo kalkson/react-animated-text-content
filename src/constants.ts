@@ -31,4 +31,4 @@ export const DEFAULT_ANIMATION = {
 export const DEFAULT_ANIMATION_TYPE = null;
 export const DEFAULT_TAG = 'div';
 export const DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN = '200px';
-export const DEFAULT_THRESHOLD = 1.0;
+export const DEFAULT_THRESHOLD = 0;

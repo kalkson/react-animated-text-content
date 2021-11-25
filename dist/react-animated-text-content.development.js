@@ -1,6 +1,4 @@
-
-
-function ___$insertStyle(css) {
+(function(g,f){typeof exports==='object'&&typeof module!=='undefined'?f(exports,require('react'),require('uuid'),require('styled-components')):typeof define==='function'&&define.amd?define(['exports','react','uuid','styled-components'],f):(g=typeof globalThis!=='undefined'?globalThis:g||self,f(g.AnimatedText={},g.React,g.uuid,g.styled));})(this,(function(exports,React,uuid,styled){function ___$insertStyle(css) {
     if (!css || typeof window === 'undefined') {
         return;
     }
@@ -11,35 +9,7 @@ function ___$insertStyle(css) {
     return css;
 }
 
-Object.defineProperty(exports,'__esModule',{value:true});var React=require('react'),uuid=require('uuid'),styled=require('styled-components');function _interopDefaultLegacy(e){return e&&typeof e==='object'&&'default'in e?e:{'default':e}}var React__default=/*#__PURE__*/_interopDefaultLegacy(React);var styled__default=/*#__PURE__*/_interopDefaultLegacy(styled);var PREDEFINED_ANIMATIONS = {
-    blocks: {
-        y: '-40px',
-    },
-    wave: {
-        y: '40px',
-    },
-    float: { x: '200px', y: '0' },
-    bounce: { y: '200px', ease: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)' },
-    throw: {
-        y: '200px',
-        scale: 4,
-    },
-    diagonal: {
-        x: '200px',
-        y: '-200px',
-        ease: 'cubic-bezier(0.68, -4.55, 0.265, 1.55)',
-        duration: 0.6,
-    },
-};
-var WHITE_SPACE_CODE = '&nbsp;';
-var DEFAULT_INTERVAL = 0.04;
-var DEFAULT_TYPE = 'words';
-var DEFAULT_ANIMATION = {
-    y: '-30px',
-};
-var DEFAULT_TAG = 'div';
-var DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN = '200px';
-var DEFAULT_THRESHOLD = 1.0;/*! *****************************************************************************
+function _interopDefaultLegacy(e){return e&&typeof e==='object'&&'default'in e?e:{'default':e}}var React__default=/*#__PURE__*/_interopDefaultLegacy(React);var styled__default=/*#__PURE__*/_interopDefaultLegacy(styled);/*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
 Permission to use, copy, modify, and/or distribute this software for any
@@ -54,10 +24,61 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
 function __makeTemplateObject(cooked, raw) {
     if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
     return cooked;
-}var AnimatedFragment = styled__default["default"].span(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"], ["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"])));
+}var PREDEFINED_ANIMATIONS = {
+    blocks: {
+        y: '-40px'
+    },
+    wave: {
+        y: '40px'
+    },
+    float: { x: '200px', y: '0' },
+    bounce: { y: '200px', ease: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)' },
+    "throw": {
+        y: '200px',
+        scale: 4
+    },
+    diagonal: {
+        x: '200px',
+        y: '-200px',
+        ease: 'cubic-bezier(0.68, -4.55, 0.265, 1.55)',
+        duration: 0.6
+    }
+};
+var WHITE_SPACE_CODE = '&nbsp;';
+var DEFAULT_INTERVAL = 0.04;
+var DEFAULT_TYPE = 'words';
+var DEFAULT_ANIMATION = {
+    y: '-30px'
+};
+var DEFAULT_TAG = 'div';
+var DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN = '200px';
+var DEFAULT_THRESHOLD = 0;var AnimatedFragment = styled__default["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"], ["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"])));
 var StyledWrapper = styled__default["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateY(0) translateX(0) scale(1);\n    }\n  }\n\n  font-size: 2rem;\n  margin-bottom: 1000px;\n  margin-top: 200px;\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"], ["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateY(0) translateX(0) scale(1);\n    }\n  }\n\n  font-size: 2rem;\n  margin-bottom: 1000px;\n  margin-top: 200px;\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"])), function (_a) {
     var uid = _a.uid;
     return uid;
@@ -74,12 +95,10 @@ var StyledWrapper = styled__default["default"].div(templateObject_3 || (template
     var _b = _a.animation, duration = _b.duration, ease = _b.ease;
     return "".concat(duration !== null && duration !== void 0 ? duration : 0.4, "s ").concat(ease !== null && ease !== void 0 ? ease : 'ease-in-out', " forwards;");
 }, function (_a) {
-    var shouldRender = _a.shouldRender, uid = _a.uid;
-    return shouldRender && "fragmentletter-".concat(uid);
+    var shouldAnimate = _a.shouldAnimate, uid = _a.uid;
+    return shouldAnimate ? "fragmentletter-".concat(uid) : '';
 }, function (_a) {
-    var count = _a.count, interval = _a.interval;
-    if (!count)
-        return;
+    var _b = _a.count, count = _b === void 0 ? 0 : _b, interval = _a.interval;
     var styles = '';
     for (var i = 0; i < count; i += 1) {
         styles += "".concat(AnimatedFragment, ":nth-of-type(").concat(i + 1, ") {\n            animation-delay: ").concat(interval * i, "s;\n          }");
@@ -101,9 +120,9 @@ var renderChars = function (arrayToRender, interval) {
 };
 var AnimatedText = function (_a) {
     var _b;
-    var _c = _a.children, children = _c === void 0 ? '' : _c, _d = _a.interval, interval = _d === void 0 ? DEFAULT_INTERVAL : _d, _e = _a.type, type = _e === void 0 ? DEFAULT_TYPE : _e, _f = _a.animation, animation = _f === void 0 ? DEFAULT_ANIMATION : _f, _g = _a.animationType, animationType = _g === void 0 ? DEFAULT_TYPE : _g, _h = _a.tag, tag = _h === void 0 ? DEFAULT_TAG : _h;
+    var _c = _a.children, children = _c === void 0 ? '' : _c, _d = _a.interval, interval = _d === void 0 ? DEFAULT_INTERVAL : _d, _e = _a.type, type = _e === void 0 ? DEFAULT_TYPE : _e, _f = _a.animation, animation = _f === void 0 ? DEFAULT_ANIMATION : _f, _g = _a.animationType, animationType = _g === void 0 ? DEFAULT_TYPE : _g, _h = _a.tag, tag = _h === void 0 ? DEFAULT_TAG : _h, props = __rest(_a, ["children", "interval", "type", "animation", "animationType", "tag"]);
     var _j = React.useState([]), arrayToRender = _j[0], setArrayToRender = _j[1];
-    var _k = React.useState(false), shouldRender = _k[0], setShouldRender = _k[1];
+    var _k = React.useState(false), shouldAnimate = _k[0], setShouldAnimate = _k[1];
     var wrapperRef = React.useRef(null);
     var animationOptions = (_b = PREDEFINED_ANIMATIONS === null || PREDEFINED_ANIMATIONS === void 0 ? void 0 : PREDEFINED_ANIMATIONS[animationType]) !== null && _b !== void 0 ? _b : animation;
     React.useEffect(function () {
@@ -124,23 +143,23 @@ var AnimatedText = function (_a) {
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting)
                     return;
-                setShouldRender(true);
+                setShouldAnimate(true);
                 if (wrapperRef.current)
                     observer.unobserve(wrapperRef.current);
             });
         }, {
             rootMargin: DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN,
-            threshold: DEFAULT_THRESHOLD,
+            threshold: DEFAULT_THRESHOLD
         });
         if (wrapperRef.current)
             observer.observe(wrapperRef.current);
         return function () {
             setArrayToRender([]);
-            setShouldRender(false);
+            setShouldAnimate(false);
         };
     }, [children, type]);
     var uid = uuid.v4();
-    return (React__default["default"].createElement(StyledWrapper, { as: tag, count: type === 'words' ? arrayToRender.length : 0, interval: interval, ref: wrapperRef, shouldRender: shouldRender, uid: uid, animation: animationOptions }, type === 'words'
+    return (React__default["default"].createElement(StyledWrapper, __assign({ as: tag, count: type === 'words' ? arrayToRender.length : 0, interval: interval, ref: wrapperRef, shouldAnimate: shouldAnimate, uid: uid, animation: animationOptions }, props), type === 'words'
         ? renderWords(arrayToRender)
         : renderChars(arrayToRender, interval)));
-};exports["default"]=AnimatedText;//# sourceMappingURL=index.js.map
+};exports["default"]=AnimatedText;Object.defineProperty(exports,'__esModule',{value:true});}));//# sourceMappingURL=react-animated-text-content.development.js.map
