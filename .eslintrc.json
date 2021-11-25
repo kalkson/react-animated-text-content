@@ -22,6 +22,7 @@
     "consistent-return": 0,
     "react/prop-types": "off",
     "react/require-default-props": "off",
+    "react/jsx-props-no-spreading": 0,
     "import/extensions": [
       "error",
       "ignorePackages",

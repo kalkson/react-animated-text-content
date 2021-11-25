@@ -140,7 +140,7 @@ var AnimatedText = function (_a) {
         };
     }, [children, type]);
     var uid = uuid.v4();
-    return (React__default["default"].createElement(StyledWrapper, { as: tag, count: type === 'words' ? arrayToRender.length : 0, interval: interval, ref: wrapperRef, shouldRender: shouldRender, uid: uid, animation: animationOptions },
-        type === 'words' && renderWords(arrayToRender),
-        type === 'chars' && renderChars(arrayToRender, interval)));
+    return (React__default["default"].createElement(StyledWrapper, { as: tag, count: type === 'words' ? arrayToRender.length : 0, interval: interval, ref: wrapperRef, shouldRender: shouldRender, uid: uid, animation: animationOptions }, type === 'words'
+        ? renderWords(arrayToRender)
+        : renderChars(arrayToRender, interval)));
 };exports["default"]=AnimatedText;//# sourceMappingURL=index.js.map

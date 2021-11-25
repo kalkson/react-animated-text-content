@@ -95,9 +95,10 @@ const AnimatedText: FC<Props> = ({
   animation = DEFAULT_ANIMATION,
   animationType = DEFAULT_TYPE,
   tag = DEFAULT_TAG,
+  ...props
 }) => {
   const [arrayToRender, setArrayToRender] = useState<string[]>([]);
-  const [shouldRender, setShouldRender] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
   const wrapperRef = useRef(null);
 
   const animationOptions = PREDEFINED_ANIMATIONS?.[animationType] ?? animation;
@@ -129,7 +130,7 @@ const AnimatedText: FC<Props> = ({
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
 
-          setShouldRender(true);
+          setShouldAnimate(true);
           if (wrapperRef.current) observer.unobserve(wrapperRef.current);
         });
       },
@@ -143,7 +144,7 @@ const AnimatedText: FC<Props> = ({
 
     return () => {
       setArrayToRender([]);
-      setShouldRender(false);
+      setShouldAnimate(false);
     };
   }, [children, type]);
 
@@ -155,13 +156,14 @@ const AnimatedText: FC<Props> = ({
       count={type === 'words' ? arrayToRender.length : 0}
       interval={interval}
       ref={wrapperRef}
-      shouldRender={shouldRender}
+      shouldAnimate={shouldAnimate}
       uid={uid}
       animation={animationOptions}
+      {...props}
     >
-      {type === 'words' && renderWords(arrayToRender)}
-
-      {type === 'chars' && renderChars(arrayToRender, interval)}
+      {type === 'words'
+        ? renderWords(arrayToRender)
+        : renderChars(arrayToRender, interval)}
     </StyledWrapper>
   );
 };

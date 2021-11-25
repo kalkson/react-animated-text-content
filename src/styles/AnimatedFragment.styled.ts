@@ -14,7 +14,7 @@ export const StyledWrapper = styled.div<{
   uid: string;
   count: number;
   interval: number;
-  shouldRender: boolean;
+  shouldAnimate: boolean;
   animation: AnimationShapeType;
 }>`
   @keyframes fragmentletter-${({ uid }) => uid} {
@@ -44,8 +44,8 @@ export const StyledWrapper = styled.div<{
     animation: ${({ animation: { duration, ease } }) =>
       `${duration ?? 0.4}s ${ease ?? 'ease-in-out'} forwards;`};
 
-    animation-name: ${({ shouldRender, uid }) =>
-      shouldRender && `fragmentletter-${uid}`};
+    animation-name: ${({ shouldAnimate, uid }) =>
+      shouldAnimate && `fragmentletter-${uid}`};
   }
 
   ${({ count, interval }) => {
