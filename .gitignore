@@ -3,4 +3,3 @@ node_modules
 .history
 package-lock.json
 *.log
-dist
