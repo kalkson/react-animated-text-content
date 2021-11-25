@@ -1,108 +1,106 @@
-import React, { useEffect, useState, useRef, FC, ReactText } from 'react';
-import styled, { css } from 'styled-components';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  FC,
+  ReactText,
+  ReactNode,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { PREDEFINED_ANIMATIONS } from './constants';
-
-const AnimatedSpan = styled.span<{
-  uid: string;
-  y?: string;
-  x?: string;
-  count?: number;
-  duration?: number;
-  ease?: string;
-  interval?: number;
-  scale?: number;
-}>`
-  @keyframes fragmentletter-${({ uid }) => uid} {
-    0% {
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(${({ y }) => y ?? 0})
-        translateX(${({ x }) => x ?? 0}) scale(${({ scale }) => scale ?? 1});
-    }
-    100% {
-      oapcity: 1;
-      visibility: visible;
-      transform: translateY(0) translateX(0) scale(1);
-    }
-  }
-
-  position: relative;
-  display: inline-block;
-  visibility: hidden;
-  animation: fragmentletter-${({ uid }) => uid} ${({ duration }) =>
-      duration ?? 0.4}s ${({ ease }) => ease ?? 'ease-in-out'} forwards;
-`;
-
-const StyledWrapper = styled.p<{
-  count: number;
-  interval: number;
-}>`
-  font-size: 2rem;
-  margin-bottom: 1000px;
-  margin-top: 200px;
-
-  & > span {
-    display: inline-block;
-  }
-
-  ${({ count, interval }) => {
-    if (!count) return;
-    let styles = '';
-
-    for (let i = 0; i < count; i++) {
-      styles += `${AnimatedSpan}:nth-of-type(${i + 1}) {
-          animation-delay: ${interval * i}s;
-        }`;
-    }
-
-    return css`
-      ${styles}
-    `;
-  }}
-`;
-
-type AnimationType =
-  | 'block'
-  | 'wave'
-  | 'float'
-  | 'bounce'
-  | 'throw'
-  | 'diagonal';
-
-type AnimationShapeType = {
-  x?: string;
-  y?: string;
-  duration?: number;
-  ease: 'string';
-};
+import {
+  DEFAULT_ANIMATION,
+  DEFAULT_INTERVAL,
+  DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN,
+  DEFAULT_TAG,
+  DEFAULT_THRESHOLD,
+  DEFAULT_TYPE,
+  PREDEFINED_ANIMATIONS,
+  WHITE_SPACE_CODE,
+} from './constants';
+import {
+  AnimatedFragment,
+  StyledWrapper,
+} from './styles/AnimatedFragment.styled';
+import { AnimationShapeType, AnimationType } from './types';
 
 interface Props {
-  type: 'chars' | 'words';
+  type?: 'chars' | 'words';
   children?: ReactText;
   interval?: number;
   animation?: AnimationShapeType;
   animationType?: AnimationType;
+  tag?:
+    | 'span'
+    | 'div'
+    | 'p'
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'h6'
+    | 'strong'
+    | 'blackquote'
+    | 'code'
+    | 'li'
+    | 'dt'
+    | 'dd'
+    | 'mark'
+    | 'ins'
+    | 'del'
+    | 'sup'
+    | 'sub'
+    | 'small'
+    | 'i'
+    | 'b'
+    | 'em';
 }
 
+const renderWords = (arrayToRender: string[]): ReactNode =>
+  arrayToRender.map((fragment, index) => (
+    <AnimatedFragment
+      key={index}
+      dangerouslySetInnerHTML={{ __html: fragment }}
+    />
+  ));
+
+const renderChars = (arrayToRender: string[], interval: number): ReactNode => {
+  let fullIndex = -1;
+
+  return arrayToRender.map((fragment, index) => {
+    const chars =
+      fragment !== WHITE_SPACE_CODE ? Array.from(fragment) : [WHITE_SPACE_CODE];
+
+    return (
+      <span key={index}>
+        {chars.map((char, charIndex) => {
+          fullIndex += 1;
+          return (
+            <AnimatedFragment
+              key={charIndex}
+              dangerouslySetInnerHTML={{ __html: char }}
+              style={{ animationDelay: `${interval * fullIndex}s` }}
+            />
+          );
+        })}
+      </span>
+    );
+  });
+};
+
 const AnimatedText: FC<Props> = ({
-  children,
-  interval = 0.04,
-  type = 'chars',
-  animation = {
-    y: '-30px',
-  },
-  animationType = null,
+  children = '',
+  interval = DEFAULT_INTERVAL,
+  type = DEFAULT_TYPE,
+  animation = DEFAULT_ANIMATION,
+  animationType = DEFAULT_TYPE,
+  tag = DEFAULT_TAG,
 }) => {
   const [arrayToRender, setArrayToRender] = useState<string[]>([]);
   const [shouldRender, setShouldRender] = useState(false);
   const wrapperRef = useRef(null);
 
-  const { x, y, scale, ease, duration } = animationType
-    ? PREDEFINED_ANIMATIONS?.[animationType]
-    : animation;
-
-  let fullIndex = -1;
+  const animationOptions = PREDEFINED_ANIMATIONS?.[animationType] ?? animation;
 
   useEffect(() => {
     if (typeof children !== 'string' && typeof children !== 'number') {
@@ -114,13 +112,15 @@ const AnimatedText: FC<Props> = ({
 
     const splittedChildren: string[] = children.toString().split(' ');
 
-    const mappedChildren: string[] = []
+    const mappedChildren = ([] as string[])
       .concat(
-        ...splittedChildren.map((word: string, index: number): any =>
-          index !== splittedChildren.length - 1 ? [word, '&nbsp;'] : [word]
+        ...splittedChildren.map((word, index) =>
+          index !== splittedChildren.length - 1
+            ? [word, WHITE_SPACE_CODE]
+            : [word]
         )
       )
-      .map((word) => (word === ' ' ? '&nbsp;' : word)) as string[];
+      .map((word) => (word === ' ' ? WHITE_SPACE_CODE : word));
 
     setArrayToRender(mappedChildren);
 
@@ -129,15 +129,13 @@ const AnimatedText: FC<Props> = ({
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
 
-          if (entry.isIntersecting === true) {
-            setShouldRender(true);
-            if (wrapperRef.current) observer.unobserve(wrapperRef.current);
-          }
+          setShouldRender(true);
+          if (wrapperRef.current) observer.unobserve(wrapperRef.current);
         });
       },
       {
-        rootMargin: '-300px',
-        threshold: 1.0,
+        rootMargin: DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN,
+        threshold: DEFAULT_THRESHOLD,
       }
     );
 
@@ -153,53 +151,17 @@ const AnimatedText: FC<Props> = ({
 
   return (
     <StyledWrapper
+      as={tag}
       count={type === 'words' ? arrayToRender.length : 0}
       interval={interval}
       ref={wrapperRef}
+      shouldRender={shouldRender}
+      uid={uid}
+      animation={animationOptions}
     >
-      {type === 'words' &&
-        shouldRender &&
-        arrayToRender.map((fragment, index) => {
-          return (
-            <AnimatedSpan
-              x={x}
-              y={y}
-              scale={scale}
-              ease={ease}
-              duration={duration}
-              key={index}
-              dangerouslySetInnerHTML={{ __html: fragment }}
-              uid={uid}
-            />
-          );
-        })}
+      {type === 'words' && renderWords(arrayToRender)}
 
-      {type === 'chars' &&
-        shouldRender &&
-        arrayToRender.map((fragment, index) => {
-          const chars =
-            fragment !== '&nbsp;' ? Array.from(fragment) : ['&nbsp;'];
-          return (
-            <span key={index}>
-              {chars.map((char, charIndex) => {
-                fullIndex++;
-                return (
-                  <AnimatedSpan
-                    x={x}
-                    y={y}
-                    scale={scale}
-                    ease={ease}
-                    duration={duration}
-                    key={charIndex}
-                    dangerouslySetInnerHTML={{ __html: char }}
-                    style={{ animationDelay: `${interval * fullIndex}s` }}
-                    uid={uid}
-                  />
-                );
-              })}
-            </span>
-          );
-        })}
+      {type === 'chars' && renderChars(arrayToRender, interval)}
     </StyledWrapper>
   );
 };

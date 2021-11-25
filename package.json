@@ -31,8 +31,18 @@
     "@types/react-dom": "^17.0.11",
     "@types/styled-components": "^5.1.15",
     "@types/uuid": "^8.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
     "babel-core": "^6.26.3",
     "babel-runtime": "^6.26.0",
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb": "^19.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "prettier": "^2.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rollup": "^2.60.1",
@@ -40,13 +50,14 @@
     "rollup-plugin-typescript2": "^0.31.1",
     "styled-components": "^5.3.3",
     "tslib": "^2.3.1",
-    "typescript": "^4.5.2",
-    "uuid": "^8.3.2"
+    "typescript": "^4.5.2"
   },
   "peerDependencies": {
     "react": ">=16.11.0 <=18.0.1",
     "react-dom": ">=16.11.0 <=18.0.1",
     "styled-components": "^5.3.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "uuid": "^8.3.2"
+  }
 }
