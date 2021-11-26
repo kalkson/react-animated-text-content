@@ -1,5 +1,5 @@
 import { AnimationShapeType } from '../types';
-export declare const AnimatedFragment: import("styled-components").StyledComponent<"div", any, {
+export declare const AnimatedFragment: import("styled-components").StyledComponent<"span", any, {
     count?: number | undefined;
     interval?: number | undefined;
 }, never>;

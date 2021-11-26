@@ -22,7 +22,7 @@ export const PREDEFINED_ANIMATIONS: Record<AnimationType, AnimationShapeType> =
     },
   };
 
-export const WHITE_SPACE_CODE = '&nbsp;';
+export const WHITE_SPACE_CODE = ' ';
 export const DEFAULT_INTERVAL = 0.04;
 export const DEFAULT_TYPE = 'words';
 export const DEFAULT_ANIMATION = {

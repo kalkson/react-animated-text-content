@@ -31,37 +31,63 @@ interface Props {
   animation?: AnimationShapeType;
   animationType?: AnimationType;
   tag?: ElementType;
-  className: string;
+  className?: string;
+  includeWhiteSpaces?: boolean;
 }
 
-const renderWords = (arrayToRender: string[]): ReactNode =>
-  arrayToRender.map((fragment, index) => (
-    <AnimatedFragment
-      key={index}
-      dangerouslySetInnerHTML={{ __html: fragment }}
-    />
-  ));
+const renderWords = (
+  arrayToRender: string[],
+  includeWhiteSpaces: boolean
+): ReactNode =>
+  arrayToRender.map((fragment, index) =>
+    fragment !== WHITE_SPACE_CODE ? (
+      <AnimatedFragment
+        key={index}
+        dangerouslySetInnerHTML={{ __html: fragment }}
+      />
+    ) : (
+      (includeWhiteSpaces && (
+        <AnimatedFragment dangerouslySetInnerHTML={{ __html: '&nbsp;' }} />
+      )) ||
+      WHITE_SPACE_CODE
+    )
+  );
 
-const renderChars = (arrayToRender: string[], interval: number): ReactNode => {
+const renderChars = (
+  arrayToRender: string[],
+  interval: number,
+  includeWhiteSpaces: boolean
+): ReactNode => {
   let fullIndex = -1;
 
   return arrayToRender.map((fragment, index) => {
     const chars =
       fragment !== WHITE_SPACE_CODE ? Array.from(fragment) : [WHITE_SPACE_CODE];
 
-    return (
-      <span key={index}>
-        {chars.map((char, charIndex) => {
-          fullIndex += 1;
-          return (
-            <AnimatedFragment
-              key={charIndex}
-              dangerouslySetInnerHTML={{ __html: char }}
-              style={{ animationDelay: `${interval * fullIndex}s` }}
-            />
-          );
-        })}
-      </span>
+    if (chars[0] !== WHITE_SPACE_CODE)
+      return (
+        <span key={index}>
+          {chars.map((char, charIndex) => {
+            fullIndex += 1;
+
+            return (
+              <AnimatedFragment
+                key={charIndex}
+                dangerouslySetInnerHTML={{ __html: char }}
+                style={{ animationDelay: `${interval * fullIndex}s` }}
+              />
+            );
+          })}
+        </span>
+      );
+
+    return includeWhiteSpaces ? (
+      <AnimatedFragment
+        dangerouslySetInnerHTML={{ __html: '&nbsp;' }}
+        style={{ animationDelay: `${interval * fullIndex}s` }}
+      />
+    ) : (
+      WHITE_SPACE_CODE
     );
   });
 };
@@ -73,6 +99,7 @@ const AnimatedText: FC<Props> = ({
   animation = DEFAULT_ANIMATION,
   animationType = DEFAULT_TYPE,
   tag = DEFAULT_TAG,
+  includeWhiteSpaces = false,
   ...props
 }) => {
   const [arrayToRender, setArrayToRender] = useState<string[]>([]);
@@ -94,9 +121,7 @@ const AnimatedText: FC<Props> = ({
     const mappedChildren = ([] as string[])
       .concat(
         ...splittedChildren.map((word, index) =>
-          index !== splittedChildren.length - 1
-            ? [word, WHITE_SPACE_CODE]
-            : [word]
+          index !== 0 ? [WHITE_SPACE_CODE, word] : [word]
         )
       )
       .map((word) => (word === ' ' ? WHITE_SPACE_CODE : word));
@@ -137,11 +162,12 @@ const AnimatedText: FC<Props> = ({
       shouldAnimate={shouldAnimate}
       uid={uid}
       animation={animationOptions}
+      data-testid="animated-text"
       {...props}
     >
       {type === 'words'
-        ? renderWords(arrayToRender)
-        : renderChars(arrayToRender, interval)}
+        ? renderWords(arrayToRender, includeWhiteSpaces)
+        : renderChars(arrayToRender, interval, includeWhiteSpaces)}
     </StyledWrapper>
   );
 };

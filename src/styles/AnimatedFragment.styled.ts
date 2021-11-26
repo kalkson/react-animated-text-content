@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { AnimationShapeType } from '../types';
 
-export const AnimatedFragment = styled.div<{
+export const AnimatedFragment = styled.span<{
   count?: number;
   interval?: number;
 }>`
@@ -42,6 +42,9 @@ export const StyledWrapper = styled.div<{
   }
 
   & ${AnimatedFragment} {
+    text-decoration: inherit;
+    vertical-align: inherit;
+
     animation: ${({ animation: { duration, ease } }) =>
       `${duration ?? 0.4}s ${ease ?? 'ease-in-out'} forwards;`};
 

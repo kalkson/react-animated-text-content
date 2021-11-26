@@ -1,7 +1,7 @@
 import sass from 'rollup-plugin-sass';
 import typescript from 'rollup-plugin-typescript2';
 import { terser } from 'rollup-plugin-terser';
-// import size from 'rollup-plugin-size';
+import size from 'rollup-plugin-size';
 import externalDeps from 'rollup-plugin-peer-deps-external';
 import replace from '@rollup/plugin-replace';
 
@@ -53,6 +53,9 @@ export default [
       replace({ 'process.env.NODE_ENV': `"production"`, delimiters: ['', ''] }),
       externalDeps(),
       terser(),
+      size({
+        writeFile: false,
+      }),
     ],
     globals,
     external: ['react', 'react-dom'],

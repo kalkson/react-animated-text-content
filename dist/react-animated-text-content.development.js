@@ -70,7 +70,7 @@ function __makeTemplateObject(cooked, raw) {
         duration: 0.6
     }
 };
-var WHITE_SPACE_CODE = '&nbsp;';
+var WHITE_SPACE_CODE = ' ';
 var DEFAULT_INTERVAL = 0.04;
 var DEFAULT_TYPE = 'words';
 var DEFAULT_ANIMATION = {
@@ -78,8 +78,8 @@ var DEFAULT_ANIMATION = {
 };
 var DEFAULT_TAG = 'div';
 var DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN = '200px';
-var DEFAULT_THRESHOLD = 0;var AnimatedFragment = styled__default["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"], ["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"])));
-var StyledWrapper = styled__default["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateY(0) translateX(0) scale(1);\n    }\n  }\n\n  font-size: 2rem;\n  margin-bottom: 1000px;\n  margin-top: 200px;\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"], ["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateY(0) translateX(0) scale(1);\n    }\n  }\n\n  font-size: 2rem;\n  margin-bottom: 1000px;\n  margin-top: 200px;\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"])), function (_a) {
+var DEFAULT_THRESHOLD = 0;var AnimatedFragment = styled__default["default"].span(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"], ["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"])));
+var StyledWrapper = styled__default["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateY(0) translateX(0) scale(1);\n    }\n  }\n\n  font-size: 2rem;\n  margin-bottom: 1000px;\n  margin-top: 200px;\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    text-decoration: inherit;\n    vertical-align: inherit;\n\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"], ["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateY(0) translateX(0) scale(1);\n    }\n  }\n\n  font-size: 2rem;\n  margin-bottom: 1000px;\n  margin-top: 200px;\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    text-decoration: inherit;\n    vertical-align: inherit;\n\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"])), function (_a) {
     var uid = _a.uid;
     return uid;
 }, function (_a) {
@@ -105,24 +105,29 @@ var StyledWrapper = styled__default["default"].div(templateObject_3 || (template
     }
     return styled.css(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n      ", "\n    "], ["\n      ", "\n    "])), styles);
 });
-var templateObject_1, templateObject_2, templateObject_3;var renderWords = function (arrayToRender) {
-    return arrayToRender.map(function (fragment, index) { return (React__default["default"].createElement(AnimatedFragment, { key: index, dangerouslySetInnerHTML: { __html: fragment } })); });
+var templateObject_1, templateObject_2, templateObject_3;var renderWords = function (arrayToRender, includeWhiteSpaces) {
+    return arrayToRender.map(function (fragment, index) {
+        return fragment !== WHITE_SPACE_CODE ? (React__default["default"].createElement(AnimatedFragment, { key: index, dangerouslySetInnerHTML: { __html: fragment } })) : ((includeWhiteSpaces && (React__default["default"].createElement(AnimatedFragment, { dangerouslySetInnerHTML: { __html: '&nbsp;' } }))) ||
+            WHITE_SPACE_CODE);
+    });
 };
-var renderChars = function (arrayToRender, interval) {
+var renderChars = function (arrayToRender, interval, includeWhiteSpaces) {
     var fullIndex = -1;
     return arrayToRender.map(function (fragment, index) {
         var chars = fragment !== WHITE_SPACE_CODE ? Array.from(fragment) : [WHITE_SPACE_CODE];
-        return (React__default["default"].createElement("span", { key: index }, chars.map(function (char, charIndex) {
-            fullIndex += 1;
-            return (React__default["default"].createElement(AnimatedFragment, { key: charIndex, dangerouslySetInnerHTML: { __html: char }, style: { animationDelay: "".concat(interval * fullIndex, "s") } }));
-        })));
+        if (chars[0] !== WHITE_SPACE_CODE)
+            return (React__default["default"].createElement("span", { key: index }, chars.map(function (char, charIndex) {
+                fullIndex += 1;
+                return (React__default["default"].createElement(AnimatedFragment, { key: charIndex, dangerouslySetInnerHTML: { __html: char }, style: { animationDelay: "".concat(interval * fullIndex, "s") } }));
+            })));
+        return includeWhiteSpaces ? (React__default["default"].createElement(AnimatedFragment, { dangerouslySetInnerHTML: { __html: '&nbsp;' }, style: { animationDelay: "".concat(interval * fullIndex, "s") } })) : (WHITE_SPACE_CODE);
     });
 };
 var AnimatedText = function (_a) {
     var _b;
-    var _c = _a.children, children = _c === void 0 ? '' : _c, _d = _a.interval, interval = _d === void 0 ? DEFAULT_INTERVAL : _d, _e = _a.type, type = _e === void 0 ? DEFAULT_TYPE : _e, _f = _a.animation, animation = _f === void 0 ? DEFAULT_ANIMATION : _f, _g = _a.animationType, animationType = _g === void 0 ? DEFAULT_TYPE : _g, _h = _a.tag, tag = _h === void 0 ? DEFAULT_TAG : _h, props = __rest(_a, ["children", "interval", "type", "animation", "animationType", "tag"]);
-    var _j = React.useState([]), arrayToRender = _j[0], setArrayToRender = _j[1];
-    var _k = React.useState(false), shouldAnimate = _k[0], setShouldAnimate = _k[1];
+    var _c = _a.children, children = _c === void 0 ? '' : _c, _d = _a.interval, interval = _d === void 0 ? DEFAULT_INTERVAL : _d, _e = _a.type, type = _e === void 0 ? DEFAULT_TYPE : _e, _f = _a.animation, animation = _f === void 0 ? DEFAULT_ANIMATION : _f, _g = _a.animationType, animationType = _g === void 0 ? DEFAULT_TYPE : _g, _h = _a.tag, tag = _h === void 0 ? DEFAULT_TAG : _h, _j = _a.includeWhiteSpaces, includeWhiteSpaces = _j === void 0 ? false : _j, props = __rest(_a, ["children", "interval", "type", "animation", "animationType", "tag", "includeWhiteSpaces"]);
+    var _k = React.useState([]), arrayToRender = _k[0], setArrayToRender = _k[1];
+    var _l = React.useState(false), shouldAnimate = _l[0], setShouldAnimate = _l[1];
     var wrapperRef = React.useRef(null);
     var animationOptions = (_b = PREDEFINED_ANIMATIONS === null || PREDEFINED_ANIMATIONS === void 0 ? void 0 : PREDEFINED_ANIMATIONS[animationType]) !== null && _b !== void 0 ? _b : animation;
     React.useEffect(function () {
@@ -134,9 +139,7 @@ var AnimatedText = function (_a) {
         var splittedChildren = children.toString().split(' ');
         var mappedChildren = (_a = [])
             .concat.apply(_a, splittedChildren.map(function (word, index) {
-            return index !== splittedChildren.length - 1
-                ? [word, WHITE_SPACE_CODE]
-                : [word];
+            return index !== 0 ? [WHITE_SPACE_CODE, word] : [word];
         })).map(function (word) { return (word === ' ' ? WHITE_SPACE_CODE : word); });
         setArrayToRender(mappedChildren);
         var observer = new IntersectionObserver(function (entries, observer) {
@@ -159,7 +162,7 @@ var AnimatedText = function (_a) {
         };
     }, [children, type]);
     var uid = uuid.v4();
-    return (React__default["default"].createElement(StyledWrapper, __assign({ as: tag, count: type === 'words' ? arrayToRender.length : 0, interval: interval, ref: wrapperRef, shouldAnimate: shouldAnimate, uid: uid, animation: animationOptions }, props), type === 'words'
-        ? renderWords(arrayToRender)
-        : renderChars(arrayToRender, interval)));
+    return (React__default["default"].createElement(StyledWrapper, __assign({ as: tag, count: type === 'words' ? arrayToRender.length : 0, interval: interval, ref: wrapperRef, shouldAnimate: shouldAnimate, uid: uid, animation: animationOptions, "data-testid": "animated-text" }, props), type === 'words'
+        ? renderWords(arrayToRender, includeWhiteSpaces)
+        : renderChars(arrayToRender, interval, includeWhiteSpaces)));
 };exports["default"]=AnimatedText;Object.defineProperty(exports,'__esModule',{value:true});}));//# sourceMappingURL=react-animated-text-content.development.js.map

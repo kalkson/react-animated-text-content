@@ -7,7 +7,8 @@ interface Props {
     animation?: AnimationShapeType;
     animationType?: AnimationType;
     tag?: ElementType;
-    className: string;
+    className?: string;
+    includeWhiteSpaces?: boolean;
 }
 declare const AnimatedText: FC<Props>;
 export default AnimatedText;
