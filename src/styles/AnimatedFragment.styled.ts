@@ -29,13 +29,9 @@ export const StyledWrapper = styled.div<{
     100% {
       oapcity: 1;
       visibility: visible;
-      transform: translateY(0) translateX(0) scale(1);
+      transform: translateX(0) translateY(0) scale(1);
     }
   }
-
-  font-size: 2rem;
-  margin-bottom: 1000px;
-  margin-top: 200px;
 
   & > span {
     display: inline-block;
@@ -57,7 +53,7 @@ export const StyledWrapper = styled.div<{
 
     for (let i = 0; i < count; i += 1) {
       styles += `${AnimatedFragment}:nth-of-type(${i + 1}) {
-            animation-delay: ${interval * i}s;
+            animation-delay: ${(interval || 0.04) * i}s;
           }`;
     }
 

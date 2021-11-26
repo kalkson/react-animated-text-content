@@ -12,7 +12,7 @@ export const PREDEFINED_ANIMATIONS: Record<AnimationType, AnimationShapeType> =
     bounce: { y: '200px', ease: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)' },
     throw: {
       y: '200px',
-      scale: 4,
+      scale: 1.4,
     },
     diagonal: {
       x: '200px',
@@ -30,5 +30,5 @@ export const DEFAULT_ANIMATION = {
 };
 export const DEFAULT_ANIMATION_TYPE = null;
 export const DEFAULT_TAG = 'div';
-export const DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN = '200px';
+export const DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN = '20%';
 export const DEFAULT_THRESHOLD = 0;

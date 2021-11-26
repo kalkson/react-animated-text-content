@@ -1,12 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  FC,
-  ReactText,
-  ReactNode,
-  ElementType,
-} from 'react';
+import React, { useEffect, useState, useRef, FC, ReactNode } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
   DEFAULT_ANIMATION,
@@ -18,22 +10,12 @@ import {
   PREDEFINED_ANIMATIONS,
   WHITE_SPACE_CODE,
 } from './constants';
+import { concatFragments } from './helpers';
 import {
   AnimatedFragment,
   StyledWrapper,
 } from './styles/AnimatedFragment.styled';
-import { AnimationShapeType, AnimationType } from './types';
-
-interface Props {
-  type?: 'chars' | 'words';
-  children?: ReactText;
-  interval?: number;
-  animation?: AnimationShapeType;
-  animationType?: AnimationType;
-  tag?: ElementType;
-  className?: string;
-  includeWhiteSpaces?: boolean;
-}
+import { AnimatedTextProps } from './types';
 
 const renderWords = (
   arrayToRender: string[],
@@ -47,7 +29,10 @@ const renderWords = (
       />
     ) : (
       (includeWhiteSpaces && (
-        <AnimatedFragment dangerouslySetInnerHTML={{ __html: '&nbsp;' }} />
+        <AnimatedFragment
+          key={`${index}&nbsp;`}
+          dangerouslySetInnerHTML={{ __html: '&nbsp;' }}
+        />
       )) ||
       WHITE_SPACE_CODE
     )
@@ -83,6 +68,7 @@ const renderChars = (
 
     return includeWhiteSpaces ? (
       <AnimatedFragment
+        key={`${index}&nbsp;`}
         dangerouslySetInnerHTML={{ __html: '&nbsp;' }}
         style={{ animationDelay: `${interval * fullIndex}s` }}
       />
@@ -92,7 +78,7 @@ const renderChars = (
   });
 };
 
-const AnimatedText: FC<Props> = ({
+const AnimatedText: FC<AnimatedTextProps> = ({
   children = '',
   interval = DEFAULT_INTERVAL,
   type = DEFAULT_TYPE,
@@ -100,6 +86,8 @@ const AnimatedText: FC<Props> = ({
   animationType = DEFAULT_TYPE,
   tag = DEFAULT_TAG,
   includeWhiteSpaces = false,
+  rootMargin,
+  threshold,
   ...props
 }) => {
   const [arrayToRender, setArrayToRender] = useState<string[]>([]);
@@ -111,22 +99,13 @@ const AnimatedText: FC<Props> = ({
   useEffect(() => {
     if (typeof children !== 'string' && typeof children !== 'number') {
       console.error(
-        "Only string (ReactText) is currently allowed as AnimatedText component's child. Please, change to proper type."
+        "Only string (ReactText) is currently allowed as react-animated-text-content component's child. Please, change to proper type."
       );
       return;
     }
 
-    const splittedChildren: string[] = children.toString().split(' ');
-
-    const mappedChildren = ([] as string[])
-      .concat(
-        ...splittedChildren.map((word, index) =>
-          index !== 0 ? [WHITE_SPACE_CODE, word] : [word]
-        )
-      )
-      .map((word) => (word === ' ' ? WHITE_SPACE_CODE : word));
-
-    setArrayToRender(mappedChildren);
+    const concatedChildren = concatFragments(children);
+    setArrayToRender(concatedChildren);
 
     const observer = new IntersectionObserver(
       (entries, observer) => {
@@ -138,12 +117,14 @@ const AnimatedText: FC<Props> = ({
         });
       },
       {
-        rootMargin: DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN,
-        threshold: DEFAULT_THRESHOLD,
+        rootMargin: rootMargin || DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN,
+        threshold: threshold || DEFAULT_THRESHOLD,
       }
     );
 
-    if (wrapperRef.current) observer.observe(wrapperRef.current);
+    if (wrapperRef.current) {
+      observer.observe(wrapperRef.current);
+    }
 
     return () => {
       setArrayToRender([]);

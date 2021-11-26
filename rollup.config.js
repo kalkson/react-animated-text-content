@@ -1,16 +1,16 @@
 import sass from 'rollup-plugin-sass';
 import typescript from 'rollup-plugin-typescript2';
 import { terser } from 'rollup-plugin-terser';
-import size from 'rollup-plugin-size';
 import externalDeps from 'rollup-plugin-peer-deps-external';
 import replace from '@rollup/plugin-replace';
 
 // import pkg from './package.json';
 
 const external = ['react', 'react-dom'];
-
 const globals = {
   react: 'React',
+  uuid: 'uuid',
+  'styled-components': 'styled',
 };
 
 export default [
@@ -25,13 +25,13 @@ export default [
         sourcemap: true,
         strict: false,
         compact: true,
+        globals,
       },
     ],
     plugins: [
       sass({ insert: true }),
       typescript({ objectHashIgnoreUnknownHack: true }),
     ],
-    globals,
     external,
   },
   {
@@ -45,19 +45,19 @@ export default [
         sourcemap: true,
         strict: true,
         compact: true,
+        globals,
       },
     ],
     plugins: [
       sass({ insert: true }),
-      typescript({ objectHashIgnoreUnknownHack: true }),
+      typescript({
+        objectHashIgnoreUnknownHack: true,
+        exclude: ['**/__tests__', '**/*.test.ts', '**/*.test.tsx', 'tests'],
+      }),
       replace({ 'process.env.NODE_ENV': `"production"`, delimiters: ['', ''] }),
       externalDeps(),
       terser(),
-      size({
-        writeFile: false,
-      }),
     ],
-    globals,
     external: ['react', 'react-dom'],
   },
 ];

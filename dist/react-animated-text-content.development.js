@@ -61,7 +61,7 @@ function __makeTemplateObject(cooked, raw) {
     bounce: { y: '200px', ease: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)' },
     "throw": {
         y: '200px',
-        scale: 4
+        scale: 1.4
     },
     diagonal: {
         x: '200px',
@@ -77,9 +77,19 @@ var DEFAULT_ANIMATION = {
     y: '-30px'
 };
 var DEFAULT_TAG = 'div';
-var DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN = '200px';
-var DEFAULT_THRESHOLD = 0;var AnimatedFragment = styled__default["default"].span(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"], ["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"])));
-var StyledWrapper = styled__default["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateY(0) translateX(0) scale(1);\n    }\n  }\n\n  font-size: 2rem;\n  margin-bottom: 1000px;\n  margin-top: 200px;\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    text-decoration: inherit;\n    vertical-align: inherit;\n\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"], ["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateY(0) translateX(0) scale(1);\n    }\n  }\n\n  font-size: 2rem;\n  margin-bottom: 1000px;\n  margin-top: 200px;\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    text-decoration: inherit;\n    vertical-align: inherit;\n\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"])), function (_a) {
+var DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN = '20%';
+var DEFAULT_THRESHOLD = 0;var splitChildrenToFragments = function (children) {
+    return children.toString().split(' ');
+};
+var concatFragments = function (children) {
+    var _a;
+    var splittedChildren = splitChildrenToFragments(children);
+    return (_a = [])
+        .concat.apply(_a, splittedChildren.map(function (word, index) {
+        return index !== 0 ? [WHITE_SPACE_CODE, word] : [word];
+    })).map(function (word) { return (word === ' ' ? WHITE_SPACE_CODE : word); });
+};var AnimatedFragment = styled__default["default"].span(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"], ["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"])));
+var StyledWrapper = styled__default["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateX(0) translateY(0) scale(1);\n    }\n  }\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    text-decoration: inherit;\n    vertical-align: inherit;\n\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"], ["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateX(0) translateY(0) scale(1);\n    }\n  }\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    text-decoration: inherit;\n    vertical-align: inherit;\n\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"])), function (_a) {
     var uid = _a.uid;
     return uid;
 }, function (_a) {
@@ -101,13 +111,13 @@ var StyledWrapper = styled__default["default"].div(templateObject_3 || (template
     var _b = _a.count, count = _b === void 0 ? 0 : _b, interval = _a.interval;
     var styles = '';
     for (var i = 0; i < count; i += 1) {
-        styles += "".concat(AnimatedFragment, ":nth-of-type(").concat(i + 1, ") {\n            animation-delay: ").concat(interval * i, "s;\n          }");
+        styles += "".concat(AnimatedFragment, ":nth-of-type(").concat(i + 1, ") {\n            animation-delay: ").concat((interval || 0.04) * i, "s;\n          }");
     }
     return styled.css(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n      ", "\n    "], ["\n      ", "\n    "])), styles);
 });
 var templateObject_1, templateObject_2, templateObject_3;var renderWords = function (arrayToRender, includeWhiteSpaces) {
     return arrayToRender.map(function (fragment, index) {
-        return fragment !== WHITE_SPACE_CODE ? (React__default["default"].createElement(AnimatedFragment, { key: index, dangerouslySetInnerHTML: { __html: fragment } })) : ((includeWhiteSpaces && (React__default["default"].createElement(AnimatedFragment, { dangerouslySetInnerHTML: { __html: '&nbsp;' } }))) ||
+        return fragment !== WHITE_SPACE_CODE ? (React__default["default"].createElement(AnimatedFragment, { key: index, dangerouslySetInnerHTML: { __html: fragment } })) : ((includeWhiteSpaces && (React__default["default"].createElement(AnimatedFragment, { key: "".concat(index, "&nbsp;"), dangerouslySetInnerHTML: { __html: '&nbsp;' } }))) ||
             WHITE_SPACE_CODE);
     });
 };
@@ -120,28 +130,23 @@ var renderChars = function (arrayToRender, interval, includeWhiteSpaces) {
                 fullIndex += 1;
                 return (React__default["default"].createElement(AnimatedFragment, { key: charIndex, dangerouslySetInnerHTML: { __html: char }, style: { animationDelay: "".concat(interval * fullIndex, "s") } }));
             })));
-        return includeWhiteSpaces ? (React__default["default"].createElement(AnimatedFragment, { dangerouslySetInnerHTML: { __html: '&nbsp;' }, style: { animationDelay: "".concat(interval * fullIndex, "s") } })) : (WHITE_SPACE_CODE);
+        return includeWhiteSpaces ? (React__default["default"].createElement(AnimatedFragment, { key: "".concat(index, "&nbsp;"), dangerouslySetInnerHTML: { __html: '&nbsp;' }, style: { animationDelay: "".concat(interval * fullIndex, "s") } })) : (WHITE_SPACE_CODE);
     });
 };
 var AnimatedText = function (_a) {
     var _b;
-    var _c = _a.children, children = _c === void 0 ? '' : _c, _d = _a.interval, interval = _d === void 0 ? DEFAULT_INTERVAL : _d, _e = _a.type, type = _e === void 0 ? DEFAULT_TYPE : _e, _f = _a.animation, animation = _f === void 0 ? DEFAULT_ANIMATION : _f, _g = _a.animationType, animationType = _g === void 0 ? DEFAULT_TYPE : _g, _h = _a.tag, tag = _h === void 0 ? DEFAULT_TAG : _h, _j = _a.includeWhiteSpaces, includeWhiteSpaces = _j === void 0 ? false : _j, props = __rest(_a, ["children", "interval", "type", "animation", "animationType", "tag", "includeWhiteSpaces"]);
+    var _c = _a.children, children = _c === void 0 ? '' : _c, _d = _a.interval, interval = _d === void 0 ? DEFAULT_INTERVAL : _d, _e = _a.type, type = _e === void 0 ? DEFAULT_TYPE : _e, _f = _a.animation, animation = _f === void 0 ? DEFAULT_ANIMATION : _f, _g = _a.animationType, animationType = _g === void 0 ? DEFAULT_TYPE : _g, _h = _a.tag, tag = _h === void 0 ? DEFAULT_TAG : _h, _j = _a.includeWhiteSpaces, includeWhiteSpaces = _j === void 0 ? false : _j, rootMargin = _a.rootMargin, threshold = _a.threshold, props = __rest(_a, ["children", "interval", "type", "animation", "animationType", "tag", "includeWhiteSpaces", "rootMargin", "threshold"]);
     var _k = React.useState([]), arrayToRender = _k[0], setArrayToRender = _k[1];
     var _l = React.useState(false), shouldAnimate = _l[0], setShouldAnimate = _l[1];
     var wrapperRef = React.useRef(null);
     var animationOptions = (_b = PREDEFINED_ANIMATIONS === null || PREDEFINED_ANIMATIONS === void 0 ? void 0 : PREDEFINED_ANIMATIONS[animationType]) !== null && _b !== void 0 ? _b : animation;
     React.useEffect(function () {
-        var _a;
         if (typeof children !== 'string' && typeof children !== 'number') {
-            console.error("Only string (ReactText) is currently allowed as AnimatedText component's child. Please, change to proper type.");
+            console.error("Only string (ReactText) is currently allowed as react-animated-text-content component's child. Please, change to proper type.");
             return;
         }
-        var splittedChildren = children.toString().split(' ');
-        var mappedChildren = (_a = [])
-            .concat.apply(_a, splittedChildren.map(function (word, index) {
-            return index !== 0 ? [WHITE_SPACE_CODE, word] : [word];
-        })).map(function (word) { return (word === ' ' ? WHITE_SPACE_CODE : word); });
-        setArrayToRender(mappedChildren);
+        var concatedChildren = concatFragments(children);
+        setArrayToRender(concatedChildren);
         var observer = new IntersectionObserver(function (entries, observer) {
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting)
@@ -151,11 +156,12 @@ var AnimatedText = function (_a) {
                     observer.unobserve(wrapperRef.current);
             });
         }, {
-            rootMargin: DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN,
-            threshold: DEFAULT_THRESHOLD
+            rootMargin: rootMargin || DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN,
+            threshold: threshold || DEFAULT_THRESHOLD
         });
-        if (wrapperRef.current)
+        if (wrapperRef.current) {
             observer.observe(wrapperRef.current);
+        }
         return function () {
             setArrayToRender([]);
             setShouldAnimate(false);
