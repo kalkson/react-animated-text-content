@@ -15,6 +15,7 @@ export const StyledWrapper = styled.div<{
   uid: string;
   count: number;
   interval: number;
+  duration: number;
   shouldAnimate: boolean;
   animation: AnimationShapeType;
 }>`
@@ -41,8 +42,8 @@ export const StyledWrapper = styled.div<{
     text-decoration: inherit;
     vertical-align: inherit;
 
-    animation: ${({ animation: { duration, ease } }) =>
-      `${duration ?? 0.4}s ${ease ?? 'ease-in-out'} forwards;`};
+    animation: ${({ animation: { ease }, duration }) =>
+      `${duration}s ${ease ?? 'ease-in-out'} forwards;`};
 
     animation-name: ${({ shouldAnimate, uid }) =>
       shouldAnimate ? `fragmentletter-${uid}` : ''};

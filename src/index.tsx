@@ -9,6 +9,7 @@ import {
   DEFAULT_TYPE,
   PREDEFINED_ANIMATIONS,
   WHITE_SPACE_CODE,
+  DEFAULT_DURATION,
 } from './constants';
 import { concatFragments } from './helpers';
 import {
@@ -80,8 +81,9 @@ const renderChars = (
 
 const AnimatedText: FC<AnimatedTextProps> = ({
   children = '',
-  interval = DEFAULT_INTERVAL,
   type = DEFAULT_TYPE,
+  interval,
+  duration,
   animation = DEFAULT_ANIMATION,
   animationType = DEFAULT_TYPE,
   tag = DEFAULT_TAG,
@@ -138,7 +140,8 @@ const AnimatedText: FC<AnimatedTextProps> = ({
     <StyledWrapper
       as={tag}
       count={type === 'words' ? arrayToRender.length : 0}
-      interval={interval}
+      interval={interval || (animationOptions?.interval ?? DEFAULT_INTERVAL)}
+      duration={duration || (animationOptions?.duration ?? DEFAULT_DURATION)}
       ref={wrapperRef}
       shouldAnimate={shouldAnimate}
       uid={uid}
@@ -148,7 +151,11 @@ const AnimatedText: FC<AnimatedTextProps> = ({
     >
       {type === 'words'
         ? renderWords(arrayToRender, includeWhiteSpaces)
-        : renderChars(arrayToRender, interval, includeWhiteSpaces)}
+        : renderChars(
+            arrayToRender,
+            interval || (animationOptions?.interval ?? DEFAULT_INTERVAL),
+            includeWhiteSpaces
+          )}
     </StyledWrapper>
   );
 };

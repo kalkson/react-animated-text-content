@@ -7,6 +7,7 @@ export declare const StyledWrapper: import("styled-components").StyledComponent<
     uid: string;
     count: number;
     interval: number;
+    duration: number;
     shouldAnimate: boolean;
     animation: AnimationShapeType;
 }, never>;

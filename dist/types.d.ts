@@ -1,16 +1,16 @@
 import { ElementType, ReactText } from 'react';
-export declare type AnimationShapeType = {
+export interface AnimationShapeType {
     x?: string;
     y?: string;
     scale?: number;
-    duration?: number;
     ease?: string;
-};
-export declare type AnimationType = 'blocks' | 'wave' | 'float' | 'bounce' | 'throw' | 'diagonal';
+}
+export declare type AnimationType = 'blocks' | 'wave' | 'float' | 'bounce' | 'throw' | 'diagonal' | 'rifle' | 'lights';
 export interface AnimatedTextProps {
     type?: 'chars' | 'words';
     children?: ReactText;
     interval?: number;
+    duration?: number;
     animation?: AnimationShapeType;
     animationType?: AnimationType;
     tag?: ElementType;
@@ -18,4 +18,8 @@ export interface AnimatedTextProps {
     includeWhiteSpaces?: boolean;
     threshold?: number;
     rootMargin?: string;
+}
+export interface ExtendedAnimationShapeType extends AnimationShapeType {
+    duration?: number;
+    interval?: number;
 }

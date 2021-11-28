@@ -52,26 +52,50 @@ function __makeTemplateObject(cooked, raw) {
     return cooked;
 }var PREDEFINED_ANIMATIONS = {
     blocks: {
-        y: '-40px'
+        y: '60px',
+        interval: 0.07,
+        duration: 0.7
     },
     wave: {
-        y: '40px'
+        y: '40px',
+        interval: 0.04,
+        duration: 0.4,
+        ease: 'ease-in-out'
     },
-    float: { x: '200px', y: '0' },
+    float: {
+        x: '200px',
+        ease: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+        duration: 1.2,
+        interval: 0.1
+    },
     bounce: { y: '200px', ease: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)' },
     "throw": {
         y: '200px',
-        scale: 1.4
+        scale: 2,
+        interval: 0.07
     },
     diagonal: {
         x: '200px',
         y: '-200px',
-        ease: 'cubic-bezier(0.68, -4.55, 0.265, 1.55)',
-        duration: 0.6
+        ease: 'cubic-bezier(0.68, -4.55, 0.265, 1.55)'
+    },
+    rifle: {
+        y: '100px',
+        x: '-500px',
+        ease: 'ease-in',
+        duration: 0.3,
+        interval: 0.03
+    },
+    lights: {
+        y: '-20px',
+        ease: 'ease-out',
+        duration: 1,
+        interval: 0.4
     }
 };
 var WHITE_SPACE_CODE = ' ';
 var DEFAULT_INTERVAL = 0.04;
+var DEFAULT_DURATION = 0.4;
 var DEFAULT_TYPE = 'words';
 var DEFAULT_ANIMATION = {
     y: '-30px'
@@ -102,8 +126,8 @@ var StyledWrapper = styled__default["default"].div(templateObject_3 || (template
     var scale = _a.animation.scale;
     return scale !== null && scale !== void 0 ? scale : 1;
 }, AnimatedFragment, function (_a) {
-    var _b = _a.animation, duration = _b.duration, ease = _b.ease;
-    return "".concat(duration !== null && duration !== void 0 ? duration : 0.4, "s ").concat(ease !== null && ease !== void 0 ? ease : 'ease-in-out', " forwards;");
+    var ease = _a.animation.ease, duration = _a.duration;
+    return "".concat(duration, "s ").concat(ease !== null && ease !== void 0 ? ease : 'ease-in-out', " forwards;");
 }, function (_a) {
     var shouldAnimate = _a.shouldAnimate, uid = _a.uid;
     return shouldAnimate ? "fragmentletter-".concat(uid) : '';
@@ -134,10 +158,10 @@ var renderChars = function (arrayToRender, interval, includeWhiteSpaces) {
     });
 };
 var AnimatedText = function (_a) {
-    var _b;
-    var _c = _a.children, children = _c === void 0 ? '' : _c, _d = _a.interval, interval = _d === void 0 ? DEFAULT_INTERVAL : _d, _e = _a.type, type = _e === void 0 ? DEFAULT_TYPE : _e, _f = _a.animation, animation = _f === void 0 ? DEFAULT_ANIMATION : _f, _g = _a.animationType, animationType = _g === void 0 ? DEFAULT_TYPE : _g, _h = _a.tag, tag = _h === void 0 ? DEFAULT_TAG : _h, _j = _a.includeWhiteSpaces, includeWhiteSpaces = _j === void 0 ? false : _j, rootMargin = _a.rootMargin, threshold = _a.threshold, props = __rest(_a, ["children", "interval", "type", "animation", "animationType", "tag", "includeWhiteSpaces", "rootMargin", "threshold"]);
-    var _k = React.useState([]), arrayToRender = _k[0], setArrayToRender = _k[1];
-    var _l = React.useState(false), shouldAnimate = _l[0], setShouldAnimate = _l[1];
+    var _b, _c, _d, _e;
+    var _f = _a.children, children = _f === void 0 ? '' : _f, _g = _a.type, type = _g === void 0 ? DEFAULT_TYPE : _g, interval = _a.interval, duration = _a.duration, _h = _a.animation, animation = _h === void 0 ? DEFAULT_ANIMATION : _h, _j = _a.animationType, animationType = _j === void 0 ? DEFAULT_TYPE : _j, _k = _a.tag, tag = _k === void 0 ? DEFAULT_TAG : _k, _l = _a.includeWhiteSpaces, includeWhiteSpaces = _l === void 0 ? false : _l, rootMargin = _a.rootMargin, threshold = _a.threshold, props = __rest(_a, ["children", "type", "interval", "duration", "animation", "animationType", "tag", "includeWhiteSpaces", "rootMargin", "threshold"]);
+    var _m = React.useState([]), arrayToRender = _m[0], setArrayToRender = _m[1];
+    var _o = React.useState(false), shouldAnimate = _o[0], setShouldAnimate = _o[1];
     var wrapperRef = React.useRef(null);
     var animationOptions = (_b = PREDEFINED_ANIMATIONS === null || PREDEFINED_ANIMATIONS === void 0 ? void 0 : PREDEFINED_ANIMATIONS[animationType]) !== null && _b !== void 0 ? _b : animation;
     React.useEffect(function () {
@@ -168,7 +192,7 @@ var AnimatedText = function (_a) {
         };
     }, [children, type]);
     var uid = uuid.v4();
-    return (React__default["default"].createElement(StyledWrapper, __assign({ as: tag, count: type === 'words' ? arrayToRender.length : 0, interval: interval, ref: wrapperRef, shouldAnimate: shouldAnimate, uid: uid, animation: animationOptions, "data-testid": "animated-text" }, props), type === 'words'
+    return (React__default["default"].createElement(StyledWrapper, __assign({ as: tag, count: type === 'words' ? arrayToRender.length : 0, interval: interval || ((_c = animationOptions === null || animationOptions === void 0 ? void 0 : animationOptions.interval) !== null && _c !== void 0 ? _c : DEFAULT_INTERVAL), duration: duration || ((_d = animationOptions === null || animationOptions === void 0 ? void 0 : animationOptions.duration) !== null && _d !== void 0 ? _d : DEFAULT_DURATION), ref: wrapperRef, shouldAnimate: shouldAnimate, uid: uid, animation: animationOptions, "data-testid": "animated-text" }, props), type === 'words'
         ? renderWords(arrayToRender, includeWhiteSpaces)
-        : renderChars(arrayToRender, interval, includeWhiteSpaces)));
+        : renderChars(arrayToRender, interval || ((_e = animationOptions === null || animationOptions === void 0 ? void 0 : animationOptions.interval) !== null && _e !== void 0 ? _e : DEFAULT_INTERVAL), includeWhiteSpaces)));
 };exports["default"]=AnimatedText;Object.defineProperty(exports,'__esModule',{value:true});}));//# sourceMappingURL=react-animated-text-content.development.js.map
