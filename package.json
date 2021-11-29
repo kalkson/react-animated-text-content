@@ -14,6 +14,7 @@
     "test:jest": "jest --coverage",
     "clean": "rm -rf dist",
     "build": "npm run clean && NODE_ENV=production rollup -c",
+    "postbuild": "rm -rf dist/helpers.d.ts dist/tests dist/styles",
     "start": "rollup -c -w",
     "prepare": "npm run build",
     "format": "prettier src/** --write"
@@ -36,6 +37,7 @@
     "type": "git",
     "url": "https://github.com/kalkson/react-animated-text-content"
   },
+  "types": "dist/index.d.ts",
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-react": "^7.16.0",

@@ -1,22 +1,111 @@
-import React, { useEffect, useState, useRef, FC, ReactNode } from 'react';
+import React, {
+  ElementType,
+  ReactText,
+  useEffect,
+  useState,
+  useRef,
+  FC,
+  ReactNode,
+} from 'react';
+
 import { v4 as uuidv4 } from 'uuid';
-import {
-  DEFAULT_ANIMATION,
-  DEFAULT_INTERVAL,
-  DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN,
-  DEFAULT_TAG,
-  DEFAULT_THRESHOLD,
-  DEFAULT_TYPE,
-  PREDEFINED_ANIMATIONS,
-  WHITE_SPACE_CODE,
-  DEFAULT_DURATION,
-} from './constants';
 import { concatFragments } from './helpers';
 import {
   AnimatedFragment,
   StyledWrapper,
 } from './styles/AnimatedFragment.styled';
-import { AnimatedTextProps } from './types';
+
+export interface AnimationShapeType {
+  x?: string;
+  y?: string;
+  scale?: number;
+  ease?: string;
+}
+
+type AnimationType =
+  | 'blocks'
+  | 'wave'
+  | 'float'
+  | 'bounce'
+  | 'throw'
+  | 'diagonal'
+  | 'rifle'
+  | 'lights';
+
+interface AnimatedTextProps {
+  type?: 'chars' | 'words';
+  children?: ReactText;
+  interval?: number;
+  duration?: number;
+  animation?: AnimationShapeType;
+  animationType?: AnimationType;
+  tag?: ElementType;
+  className?: string;
+  includeWhiteSpaces?: boolean;
+  threshold?: number;
+  rootMargin?: string;
+}
+
+interface ExtendedAnimationShapeType extends AnimationShapeType {
+  duration?: number;
+  interval?: number;
+}
+
+const PREDEFINED_ANIMATIONS: Record<AnimationType, ExtendedAnimationShapeType> =
+  {
+    blocks: {
+      y: '60px',
+      interval: 0.07,
+      duration: 0.7,
+    },
+    wave: {
+      y: '40px',
+      interval: 0.04,
+      duration: 0.4,
+      ease: 'ease-in-out',
+    },
+    float: {
+      x: '200px',
+      ease: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+      duration: 1.2,
+      interval: 0.1,
+    },
+    bounce: { y: '200px', ease: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)' },
+    throw: {
+      y: '200px',
+      scale: 2,
+      interval: 0.07,
+    },
+    diagonal: {
+      x: '200px',
+      y: '-200px',
+      ease: 'cubic-bezier(0.68, -4.55, 0.265, 1.55)',
+    },
+    rifle: {
+      y: '100px',
+      x: '-500px',
+      ease: 'ease-in',
+      duration: 0.3,
+      interval: 0.03,
+    },
+    lights: {
+      y: '-20px',
+      ease: 'ease-out',
+      duration: 1,
+      interval: 0.4,
+    },
+  };
+
+export const WHITE_SPACE_CODE = ' ';
+const DEFAULT_INTERVAL = 0.04;
+const DEFAULT_DURATION = 0.4;
+const DEFAULT_TYPE = 'words';
+const DEFAULT_ANIMATION = {
+  y: '-30px',
+};
+const DEFAULT_TAG = 'div';
+const DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN = '20%';
+const DEFAULT_THRESHOLD = 0;
 
 const renderWords = (
   arrayToRender: string[],
