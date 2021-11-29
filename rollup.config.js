@@ -28,10 +28,7 @@ export default [
         globals,
       },
     ],
-    plugins: [
-      sass({ insert: true }),
-      typescript({ objectHashIgnoreUnknownHack: true }),
-    ],
+    plugins: [sass({ insert: true }), typescript()],
     external,
   },
   {
@@ -50,10 +47,7 @@ export default [
     ],
     plugins: [
       sass({ insert: true }),
-      typescript({
-        objectHashIgnoreUnknownHack: true,
-        exclude: ['**/__tests__', '**/*.test.ts', '**/*.test.tsx', 'tests'],
-      }),
+      typescript(),
       replace({ 'process.env.NODE_ENV': `"production"`, delimiters: ['', ''] }),
       externalDeps(),
       terser(),

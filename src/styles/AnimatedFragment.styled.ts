@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
-
-import { AnimationShapeType } from '../types';
+import { AnimationShapeType } from '..';
 
 export const AnimatedFragment = styled.span<{
   count?: number;

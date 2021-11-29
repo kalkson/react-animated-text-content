@@ -50,7 +50,44 @@ function __rest(s, e) {
 function __makeTemplateObject(cooked, raw) {
     if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
     return cooked;
-}var PREDEFINED_ANIMATIONS = {
+}var splitChildrenToFragments = function (children) {
+    return children.toString().split(' ');
+};
+var concatFragments = function (children) {
+    var _a;
+    var splittedChildren = splitChildrenToFragments(children);
+    return (_a = [])
+        .concat.apply(_a, splittedChildren.map(function (word, index) {
+        return index !== 0 ? [WHITE_SPACE_CODE, word] : [word];
+    })).map(function (word) { return (word === ' ' ? WHITE_SPACE_CODE : word); });
+};var AnimatedFragment = styled__default["default"].span(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"], ["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"])));
+var StyledWrapper = styled__default["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateX(0) translateY(0) scale(1);\n    }\n  }\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    text-decoration: inherit;\n    vertical-align: inherit;\n\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"], ["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateX(0) translateY(0) scale(1);\n    }\n  }\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    text-decoration: inherit;\n    vertical-align: inherit;\n\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"])), function (_a) {
+    var uid = _a.uid;
+    return uid;
+}, function (_a) {
+    var x = _a.animation.x;
+    return x !== null && x !== void 0 ? x : 0;
+}, function (_a) {
+    var y = _a.animation.y;
+    return y !== null && y !== void 0 ? y : 0;
+}, function (_a) {
+    var scale = _a.animation.scale;
+    return scale !== null && scale !== void 0 ? scale : 1;
+}, AnimatedFragment, function (_a) {
+    var ease = _a.animation.ease, duration = _a.duration;
+    return "".concat(duration, "s ").concat(ease !== null && ease !== void 0 ? ease : 'ease-in-out', " forwards;");
+}, function (_a) {
+    var shouldAnimate = _a.shouldAnimate, uid = _a.uid;
+    return shouldAnimate ? "fragmentletter-".concat(uid) : '';
+}, function (_a) {
+    var _b = _a.count, count = _b === void 0 ? 0 : _b, interval = _a.interval;
+    var styles = '';
+    for (var i = 0; i < count; i += 1) {
+        styles += "".concat(AnimatedFragment, ":nth-of-type(").concat(i + 1, ") {\n            animation-delay: ").concat((interval || 0.04) * i, "s;\n          }");
+    }
+    return styled.css(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n      ", "\n    "], ["\n      ", "\n    "])), styles);
+});
+var templateObject_1, templateObject_2, templateObject_3;var PREDEFINED_ANIMATIONS = {
     blocks: {
         y: '60px',
         interval: 0.07,
@@ -102,44 +139,8 @@ var DEFAULT_ANIMATION = {
 };
 var DEFAULT_TAG = 'div';
 var DEFAULT_INTESECTION_OBSERVER_ROOT_MARGIN = '20%';
-var DEFAULT_THRESHOLD = 0;var splitChildrenToFragments = function (children) {
-    return children.toString().split(' ');
-};
-var concatFragments = function (children) {
-    var _a;
-    var splittedChildren = splitChildrenToFragments(children);
-    return (_a = [])
-        .concat.apply(_a, splittedChildren.map(function (word, index) {
-        return index !== 0 ? [WHITE_SPACE_CODE, word] : [word];
-    })).map(function (word) { return (word === ' ' ? WHITE_SPACE_CODE : word); });
-};var AnimatedFragment = styled__default["default"].span(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"], ["\n  position: relative;\n  display: inline-block;\n  visibility: hidden;\n"])));
-var StyledWrapper = styled__default["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateX(0) translateY(0) scale(1);\n    }\n  }\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    text-decoration: inherit;\n    vertical-align: inherit;\n\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"], ["\n  @keyframes fragmentletter-", " {\n    0% {\n      opacity: 0;\n      visibility: hidden;\n      transform: translateX(", ")\n        translateY(", ")\n        scale(", ");\n    }\n    100% {\n      oapcity: 1;\n      visibility: visible;\n      transform: translateX(0) translateY(0) scale(1);\n    }\n  }\n\n  & > span {\n    display: inline-block;\n  }\n\n  & ", " {\n    text-decoration: inherit;\n    vertical-align: inherit;\n\n    animation: ", ";\n\n    animation-name: ", ";\n  }\n\n  ", "\n"])), function (_a) {
-    var uid = _a.uid;
-    return uid;
-}, function (_a) {
-    var x = _a.animation.x;
-    return x !== null && x !== void 0 ? x : 0;
-}, function (_a) {
-    var y = _a.animation.y;
-    return y !== null && y !== void 0 ? y : 0;
-}, function (_a) {
-    var scale = _a.animation.scale;
-    return scale !== null && scale !== void 0 ? scale : 1;
-}, AnimatedFragment, function (_a) {
-    var ease = _a.animation.ease, duration = _a.duration;
-    return "".concat(duration, "s ").concat(ease !== null && ease !== void 0 ? ease : 'ease-in-out', " forwards;");
-}, function (_a) {
-    var shouldAnimate = _a.shouldAnimate, uid = _a.uid;
-    return shouldAnimate ? "fragmentletter-".concat(uid) : '';
-}, function (_a) {
-    var _b = _a.count, count = _b === void 0 ? 0 : _b, interval = _a.interval;
-    var styles = '';
-    for (var i = 0; i < count; i += 1) {
-        styles += "".concat(AnimatedFragment, ":nth-of-type(").concat(i + 1, ") {\n            animation-delay: ").concat((interval || 0.04) * i, "s;\n          }");
-    }
-    return styled.css(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n      ", "\n    "], ["\n      ", "\n    "])), styles);
-});
-var templateObject_1, templateObject_2, templateObject_3;var renderWords = function (arrayToRender, includeWhiteSpaces) {
+var DEFAULT_THRESHOLD = 0;
+var renderWords = function (arrayToRender, includeWhiteSpaces) {
     return arrayToRender.map(function (fragment, index) {
         return fragment !== WHITE_SPACE_CODE ? (React__default["default"].createElement(AnimatedFragment, { key: index, dangerouslySetInnerHTML: { __html: fragment } })) : ((includeWhiteSpaces && (React__default["default"].createElement(AnimatedFragment, { key: "".concat(index, "&nbsp;"), dangerouslySetInnerHTML: { __html: '&nbsp;' } }))) ||
             WHITE_SPACE_CODE);
@@ -195,4 +196,4 @@ var AnimatedText = function (_a) {
     return (React__default["default"].createElement(StyledWrapper, __assign({ as: tag, count: type === 'words' ? arrayToRender.length : 0, interval: interval || ((_c = animationOptions === null || animationOptions === void 0 ? void 0 : animationOptions.interval) !== null && _c !== void 0 ? _c : DEFAULT_INTERVAL), duration: duration || ((_d = animationOptions === null || animationOptions === void 0 ? void 0 : animationOptions.duration) !== null && _d !== void 0 ? _d : DEFAULT_DURATION), ref: wrapperRef, shouldAnimate: shouldAnimate, uid: uid, animation: animationOptions, "data-testid": "animated-text" }, props), type === 'words'
         ? renderWords(arrayToRender, includeWhiteSpaces)
         : renderChars(arrayToRender, interval || ((_e = animationOptions === null || animationOptions === void 0 ? void 0 : animationOptions.interval) !== null && _e !== void 0 ? _e : DEFAULT_INTERVAL), includeWhiteSpaces)));
-};exports["default"]=AnimatedText;Object.defineProperty(exports,'__esModule',{value:true});}));//# sourceMappingURL=react-animated-text-content.development.js.map
+};exports.WHITE_SPACE_CODE=WHITE_SPACE_CODE;exports["default"]=AnimatedText;Object.defineProperty(exports,'__esModule',{value:true});}));//# sourceMappingURL=react-animated-text-content.development.js.map

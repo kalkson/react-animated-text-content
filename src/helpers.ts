@@ -1,5 +1,5 @@
 import { ReactText } from 'react';
-import { WHITE_SPACE_CODE } from './constants';
+import { WHITE_SPACE_CODE } from '.';
 
 export const splitChildrenToFragments = (children: ReactText) =>
   children.toString().split(' ');
