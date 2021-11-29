@@ -31,7 +31,7 @@
     "testEnvironment": "jsdom"
   },
   "author": "Damian Kalka (kalka@762@gmail.com)",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/kalkson/react-animated-text-content"
